@@ -3,5 +3,10 @@ import { HomeComponent } from './home.component';
 
 export const appRoutes: Route[] = [
   { path: '', component: HomeComponent },
-  { path: '**', redirectTo: '' }
+  {
+    path: 'document-list',
+    loadComponent: () =>
+      import('@kathrine0/document-list').then((m) => m.DocumentList),
+  },
+  { path: '**', redirectTo: '' },
 ];
