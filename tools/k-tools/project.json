@@ -1,0 +1,48 @@
+{
+  "name": "k-tools",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "tools/k-tools/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/tools/k-tools",
+        "main": "tools/k-tools/src/index.ts",
+        "tsConfig": "tools/k-tools/tsconfig.lib.json",
+        "assets": [
+          "tools/k-tools/*.md",
+          {
+            "input": "./tools/k-tools/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./tools/k-tools/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./tools/k-tools",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./tools/k-tools",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "tools/k-tools/jest.config.ts"
+      }
+    }
+  }
+}
