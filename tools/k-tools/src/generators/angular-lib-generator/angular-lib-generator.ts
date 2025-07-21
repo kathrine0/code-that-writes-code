@@ -84,11 +84,10 @@ function modifyPluginJson(
   tree: Tree,
   options: AngularLibGeneratorGeneratorSchema
 ) {
-  const projectName = 'my-app'
-  const targetProjectRoot = getProjects(tree).get(projectName)?.sourceRoot;
+  const targetProjectRoot = getProjects(tree).get(options.targetApp)?.sourceRoot;
 
   if (!targetProjectRoot) {
-    throw new Error(`Target project "${projectName}" not found.`);
+    throw new Error(`Target project "${options.targetApp}" not found.`);
   }
 
   const pluginsPath = path.join(
