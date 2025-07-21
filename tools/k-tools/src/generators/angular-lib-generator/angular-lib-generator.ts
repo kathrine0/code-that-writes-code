@@ -1,8 +1,4 @@
-import {
-  formatFiles,
-  generateFiles,
-  Tree,
-} from '@nx/devkit';
+import { formatFiles, generateFiles, getProjects, Tree, updateJson } from '@nx/devkit';
 import { AngularLibGeneratorGeneratorSchema } from './schema';
 import { libraryGenerator } from '@nx/angular/generators';
 import { Schema } from '@nx/angular/src/generators/library/schema';
@@ -30,23 +26,18 @@ export async function angularLibGeneratorGenerator(
   // generate app files
   generateAdditionalFiles(tree, options);
 
-
   // modify plugins.json file
-  // modify routing
+  modifyPluginJson(tree, options);
 
+  // modify routing
 
   // format files
   await formatFiles(tree);
-
 }
 
 export default angularLibGeneratorGenerator;
 
-function generateAdditionalFiles(
-  tree: Tree,
-  options: AngularLibGeneratorGeneratorSchema
-) {
-  const projectRoot = options.directory;
+function createPluginDescription(options: AngularLibGeneratorGeneratorSchema) {
   const name = options.name ?? extractNameFromDirectory(options.directory);
   const subtitle = options.subtitle ?? `${name} Subtitle`;
   const description =
@@ -54,18 +45,28 @@ function generateAdditionalFiles(
     `This is the default description for the ${name} library. It provides essential features and functionalities that enhance the overall user experience.`;
   const route = getLastPartOfPath(options.directory).toLowerCase();
 
+  return {
+    name,
+    subtitle,
+    description,
+    route,
+  };
+}
+
+function generateAdditionalFiles(
+  tree: Tree,
+  options: AngularLibGeneratorGeneratorSchema
+) {
+  const projectRoot = options.directory;
+
   generateFiles(
     tree,
     path.join(__dirname, 'files'),
     path.relative(path.join(tree.root), path.join(process.cwd(), projectRoot)),
-    {
-      name,
-      subtitle,
-      description,
-      route,
-    }
+    createPluginDescription(options)
   );
 }
+
 
 function extractNameFromDirectory(directory: string): string {
   return getLastPartOfPath(directory)
@@ -77,4 +78,34 @@ function extractNameFromDirectory(directory: string): string {
 function getLastPartOfPath(path: string): string {
   const parts = path.split('/');
   return parts[parts.length - 1];
+}
+
+function modifyPluginJson(
+  tree: Tree,
+  options: AngularLibGeneratorGeneratorSchema
+) {
+  const projectName = 'my-app'
+  const targetProjectRoot = getProjects(tree).get(projectName)?.sourceRoot;
+
+  if (!targetProjectRoot) {
+    throw new Error(`Target project "${projectName}" not found.`);
+  }
+
+  const pluginsPath = path.join(
+    targetProjectRoot,
+    'plugins.json'
+  );
+  if (!tree.exists(pluginsPath)) {
+    tree.write(pluginsPath, JSON.stringify([], null, 2));
+  }
+
+  updateJson(tree, pluginsPath, (json) => {
+    const plugin = createPluginDescription(options);
+
+    if (!json.some((p) => p.name === plugin.name)) {
+      json.push(plugin);
+    }
+
+    return json;
+  });
 }

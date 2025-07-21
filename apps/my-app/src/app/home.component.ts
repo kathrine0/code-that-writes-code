@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import plugins from './plugins.json';
+import plugins from './../plugins.json';
 import { Plugin } from './plugin-interface';
 
 @Component({
