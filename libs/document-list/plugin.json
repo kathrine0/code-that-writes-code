@@ -1,0 +1,6 @@
+{
+  "name": "Document List",
+  "subtitle": "Manage the company documents.",
+  "description": "This application allows you to view and manage documents. You can add, edit, and delete documents as needed. It provides a user-friendly interface for document management.",
+  "route": "/document-list"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "<%= name %>",
+  "subtitle": "<%= subtitle %>",
+  "description": "<%= description %>",
+  "route": "/<%= route %>"
+}
