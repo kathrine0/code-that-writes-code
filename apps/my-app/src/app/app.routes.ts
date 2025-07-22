@@ -8,5 +8,4 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('@kathrine0/document-list').then((m) => m.DocumentList),
   },
-  { path: '**', redirectTo: '' },
 ];

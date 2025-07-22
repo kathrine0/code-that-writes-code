@@ -1,21 +1,28 @@
-import { formatFiles, generateFiles, getProjects, Tree, updateJson } from '@nx/devkit';
-import { AngularLibGeneratorGeneratorSchema } from './schema';
+import {
+  formatFiles,
+  generateFiles,
+  getProjects,
+  Tree,
+  updateJson,
+  names,
+} from '@nx/devkit';
+import { AngularLibGeneratorGeneratorSchema, GeneratorOptions } from './schema';
 import { libraryGenerator } from '@nx/angular/generators';
 import { Schema } from '@nx/angular/src/generators/library/schema';
 import * as path from 'path';
+import * as j from 'jscodeshift';
+import { parse } from 'recast/parsers/typescript';
 
 export async function angularLibGeneratorGenerator(
   tree: Tree,
   options: AngularLibGeneratorGeneratorSchema
 ) {
-  const name = options.name ?? getLastPartOfPath(options.directory);
+  const normalizedOptions = normalizeOptions(options);
 
   const schema: Schema = {
-    ...options,
-    name,
+    ...normalizedOptions,
     buildable: true,
     publishable: true,
-    importPath: `@kathrine0/${name}`,
     standalone: true,
     changeDetection: 'OnPush',
     style: 'scss',
@@ -24,12 +31,13 @@ export async function angularLibGeneratorGenerator(
   await libraryGenerator(tree, schema);
 
   // generate app files
-  generateAdditionalFiles(tree, options);
+  generateAdditionalFiles(tree, normalizedOptions);
 
   // modify plugins.json file
-  modifyPluginJson(tree, options);
+  modifyPluginJson(tree, normalizedOptions);
 
   // modify routing
+  modifyAppRoutes(tree, normalizedOptions);
 
   // format files
   await formatFiles(tree);
@@ -37,39 +45,46 @@ export async function angularLibGeneratorGenerator(
 
 export default angularLibGeneratorGenerator;
 
-function createPluginDescription(options: AngularLibGeneratorGeneratorSchema) {
-  const name = options.name ?? extractNameFromDirectory(options.directory);
-  const subtitle = options.subtitle ?? `${name} Subtitle`;
+function normalizeOptions(
+  options: AngularLibGeneratorGeneratorSchema
+): GeneratorOptions {
+  const name =
+    options.name ?? getLastPartOfPath(options.directory).toLowerCase();
+
+  const componentName = names(name).className;
+  const prettyName = prettifyName(name);
+  const subtitle = options.subtitle ?? `${prettyName} Subtitle`;
   const description =
     options.description ??
-    `This is the default description for the ${name} library. It provides essential features and functionalities that enhance the overall user experience.`;
-  const route = getLastPartOfPath(options.directory).toLowerCase();
+    `This is the default description for the ${prettyName} library. It provides essential features and functionalities that enhance the overall user experience.`;
+  const route = names(name).fileName;
+  const importPath = `@kathrine0/${names(name).fileName}`;
 
   return {
+    ...options,
     name,
+    componentName,
     subtitle,
     description,
     route,
+    importPath,
+    prettyName,
   };
 }
 
-function generateAdditionalFiles(
-  tree: Tree,
-  options: AngularLibGeneratorGeneratorSchema
-) {
+function generateAdditionalFiles(tree: Tree, options: GeneratorOptions) {
   const projectRoot = options.directory;
 
   generateFiles(
     tree,
     path.join(__dirname, 'files'),
     path.relative(path.join(tree.root), path.join(process.cwd(), projectRoot)),
-    createPluginDescription(options)
+    options
   );
 }
 
-
-function extractNameFromDirectory(directory: string): string {
-  return getLastPartOfPath(directory)
+function prettifyName(name: string): string {
+  return name
     .split('-')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
@@ -80,31 +95,63 @@ function getLastPartOfPath(path: string): string {
   return parts[parts.length - 1];
 }
 
-function modifyPluginJson(
-  tree: Tree,
-  options: AngularLibGeneratorGeneratorSchema
-) {
-  const targetProjectRoot = getProjects(tree).get(options.targetApp)?.sourceRoot;
+function modifyPluginJson(tree: Tree, options: GeneratorOptions) {
+  const targetProjectRoot = getProjects(tree).get(
+    options.targetApp
+  )?.sourceRoot;
 
   if (!targetProjectRoot) {
     throw new Error(`Target project "${options.targetApp}" not found.`);
   }
 
-  const pluginsPath = path.join(
-    targetProjectRoot,
-    'plugins.json'
-  );
+  const pluginsPath = path.join(targetProjectRoot, 'plugins.json');
   if (!tree.exists(pluginsPath)) {
     tree.write(pluginsPath, JSON.stringify([], null, 2));
   }
 
   updateJson(tree, pluginsPath, (json) => {
-    const plugin = createPluginDescription(options);
-
-    if (!json.some((p) => p.name === plugin.name)) {
-      json.push(plugin);
+    if (!json.some((p) => p.name === options.name)) {
+      json.push({
+        name: options.name,
+        subtitle: options.subtitle,
+        description: options.description,
+        route: options.route,
+      });
     }
 
     return json;
   });
+}
+
+function modifyAppRoutes(tree: Tree, options: GeneratorOptions) {
+  const targetProjectRoot = getProjects(tree).get(
+    options.targetApp
+  )?.sourceRoot;
+
+  const routesPath = path.join(targetProjectRoot, 'app', 'app.routes.ts');
+
+  if (!tree.exists(routesPath)) {
+    throw new Error(`Routes file "${routesPath}" does not exist.`);
+  }
+
+  const routeTemplate = `
+    ({
+      path: '${options.route}',
+      loadComponent: () => import('${options.importPath}').then((m) => m.${options.componentName})
+    })
+  `;
+  const tsNode = j(routeTemplate).find(j.ObjectExpression).get(0).node;
+
+  const content = tree.read(routesPath, 'utf-8');
+
+  const newContent = j(content, { parser: { parse } })
+    .find(j.ExportNamedDeclaration)
+    .find(j.VariableDeclaration)
+    .find(j.ArrayExpression)
+    .forEach((path) => {
+      path.node.elements.push(tsNode);
+    })
+    .toSource({ quote: 'single', trailingComma: true });
+
+  tree.write(routesPath, newContent);
 }
