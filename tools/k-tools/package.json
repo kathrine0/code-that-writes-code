@@ -1,6 +1,6 @@
 {
   "name": "@kathrine0/k-tools",
-  "version": "0.0.8",
+  "version": "0.0.10",
   "type": "commonjs",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",

@@ -95,6 +95,13 @@ function getLastPartOfPath(path: string): string {
   return parts[parts.length - 1];
 }
 
+interface PluginConfig {
+  name: string;
+  subtitle: string;
+  description: string;
+  route: string;
+}
+
 function modifyPluginJson(tree: Tree, options: GeneratorOptions) {
   const targetProjectRoot = getProjects(tree).get(
     options.targetApp
@@ -109,8 +116,8 @@ function modifyPluginJson(tree: Tree, options: GeneratorOptions) {
     tree.write(pluginsPath, JSON.stringify([], null, 2));
   }
 
-  updateJson(tree, pluginsPath, (json) => {
-    if (!json.some((p) => p.name === options.name)) {
+  updateJson(tree, pluginsPath, (json: PluginConfig[]) => {
+    if (!json.some((p: PluginConfig) => p.name === options.name)) {
       json.push({
         name: options.name,
         subtitle: options.subtitle,
@@ -128,6 +135,10 @@ function modifyAppRoutes(tree: Tree, options: GeneratorOptions) {
     options.targetApp
   )?.sourceRoot;
 
+  if (!targetProjectRoot) {
+    throw new Error(`Target project "${options.targetApp}" not found.`);
+  }
+
   const routesPath = path.join(targetProjectRoot, 'app', 'app.routes.ts');
 
   if (!tree.exists(routesPath)) {
@@ -143,6 +154,9 @@ function modifyAppRoutes(tree: Tree, options: GeneratorOptions) {
   const tsNode = j(routeTemplate).find(j.ObjectExpression).get(0).node;
 
   const content = tree.read(routesPath, 'utf-8');
+  if (!content) {
+    throw new Error(`Could not read routes file "${routesPath}".`);
+  }
 
   const newContent = j(content, { parser: { parse } })
     .find(j.ExportNamedDeclaration)

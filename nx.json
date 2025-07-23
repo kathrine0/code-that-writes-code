@@ -19,7 +19,6 @@
       "{workspaceRoot}/.github/workflows/ci.yml"
     ]
   },
-  "nxCloudId": "68777f804a830764a3da1191",
   "targetDefaults": {
     "@angular/build:application": {
       "cache": true,
@@ -110,15 +109,14 @@
   },
   "release": {
     "version": {
-      "preVersionCommand": "npx nx run-many -t build"
-    },
-    "git": {
-      "tag": false,
-      "stageChanges": false,
-      "commit": false
+      "preVersionCommand": "npx nx run-many -t build",
+      "manifestRootsToUpdate": ["dist/{projectRoot}"],
+      "preserveLocalDependencyProtocols": false,
+      "currentVersionResolver": "disk"
     },
     "changelog": {
       "automaticFromRef": false
-    }
+    },
+    "projectsRelationship": "fixed"
   }
 }
