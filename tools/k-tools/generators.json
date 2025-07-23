@@ -9,6 +9,12 @@
       "factory": "./src/generators/angular-lib-generator/angular-lib-generator",
       "schema": "./src/generators/angular-lib-generator/schema.json",
       "description": "angular-lib-generator generator"
+    },
+    "preset": {
+      "factory": "./src/generators/preset/preset",
+      "schema": "./src/generators/preset/schema.json",
+      "description": "preset generator",
+      "x-use-standalone-layout": true
     }
   }
 }
