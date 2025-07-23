@@ -1,14 +1,13 @@
 {
   "name": "@kathrine0/k-tools",
-  "version": "0.0.1",
-  "private": true,
+  "version": "0.0.8",
   "type": "commonjs",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
   "dependencies": {
-    "@nx/devkit": "21.2.3",
+    "@nx/devkit": "^21.3.0",
+    "@nx/angular": "^21.3.0",
     "tslib": "^2.3.0",
-    "@nx/angular": "21.2.3",
     "jscodeshift": "^17.3.0",
     "recast": "0.23.11"
   },

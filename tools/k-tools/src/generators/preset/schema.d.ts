@@ -1,3 +1,3 @@
 export interface PresetGeneratorSchema {
-  directory: string;
+  name: string;
 }

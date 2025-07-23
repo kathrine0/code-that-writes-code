@@ -111,6 +111,14 @@
   "release": {
     "version": {
       "preVersionCommand": "npx nx run-many -t build"
+    },
+    "git": {
+      "tag": false,
+      "stageChanges": false,
+      "commit": false
+    },
+    "changelog": {
+      "automaticFromRef": false
     }
   }
 }
