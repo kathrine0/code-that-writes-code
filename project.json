@@ -1,5 +1,5 @@
 {
-  "name": "@code-that-writes-code/source",
+  "name": "code-that-writes-code",
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "targets": {
     "local-registry": {

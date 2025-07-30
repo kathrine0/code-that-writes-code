@@ -1,0 +1,15 @@
+{
+  "name": "@kathrine0/create-workspace",
+  "version": "0.0.52",
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "dependencies": {
+    "create-nx-workspace": "21.3.4",
+    "tslib": "^2.3.0",
+    "@kathrine0/k-tools":"0.0.52"
+  },
+  "bin": {
+    "create-workspace": "./bin/index.js"
+  }
+}
