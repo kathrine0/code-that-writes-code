@@ -6,17 +6,15 @@ import {
   updateJson,
   names,
 } from '@nx/devkit';
-import { AngularLibGeneratorGeneratorSchema, GeneratorOptions } from './schema';
+import { GeneratorOptions, KLibGeneratorSchema } from './schema';
 import { libraryGenerator } from '@nx/angular/generators';
 import { Schema } from '@nx/angular/src/generators/library/schema';
 import * as path from 'path';
 import * as j from 'jscodeshift';
 import { parse } from 'recast/parsers/typescript';
 
-export async function angularLibGeneratorGenerator(
-  tree: Tree,
-  options: AngularLibGeneratorGeneratorSchema
-) {
+export async function kLibGenerator(tree: Tree, options: KLibGeneratorSchema) {
+
   const normalizedOptions = normalizeOptions(options);
 
   const schema: Schema = {
@@ -43,10 +41,10 @@ export async function angularLibGeneratorGenerator(
   await formatFiles(tree);
 }
 
-export default angularLibGeneratorGenerator;
+export default kLibGenerator;
 
 function normalizeOptions(
-  options: AngularLibGeneratorGeneratorSchema
+  options: KLibGeneratorSchema
 ): GeneratorOptions {
   const name =
     options.name ?? getLastPartOfPath(options.directory).toLowerCase();
@@ -119,7 +117,7 @@ function modifyPluginJson(tree: Tree, options: GeneratorOptions) {
   updateJson(tree, pluginsPath, (json: PluginConfig[]) => {
     if (!json.some((p: PluginConfig) => p.name === options.name)) {
       json.push({
-        name: options.name,
+        name: options.prettyName,
         subtitle: options.subtitle,
         description: options.description,
         route: options.route,

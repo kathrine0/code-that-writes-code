@@ -5,16 +5,16 @@
       "schema": "./src/generators/basic-generator/schema.json",
       "description": "basic-generator generator"
     },
-    "angular-lib-generator": {
-      "factory": "./src/generators/angular-lib-generator/angular-lib-generator",
-      "schema": "./src/generators/angular-lib-generator/schema.json",
-      "description": "angular-lib-generator generator"
-    },
     "preset": {
       "factory": "./src/generators/preset/preset",
       "schema": "./src/generators/preset/schema.json",
       "description": "preset generator",
       "hidden": true
+    },
+    "k-lib": {
+      "factory": "./src/generators/k-lib/k-lib",
+      "schema": "./src/generators/k-lib/schema.json",
+      "description": "k-lib generator"
     }
   }
 }

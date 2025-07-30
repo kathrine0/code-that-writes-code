@@ -1,4 +1,4 @@
-export interface AngularLibGeneratorGeneratorSchema {
+export interface KLibGeneratorSchema {
   directory: string;
   targetApp: string;
   name?: string;

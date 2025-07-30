@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/schema",
-  "$id": "AngularLibGenerator",
+  "$id": "KLib",
   "title": "",
   "type": "object",
   "properties": {

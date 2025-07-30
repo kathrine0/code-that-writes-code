@@ -1,19 +1,19 @@
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { Tree, readProjectConfiguration } from '@nx/devkit';
 
-import { angularLibGeneratorGenerator } from './angular-lib-generator';
-import { AngularLibGeneratorGeneratorSchema } from './schema';
+import { kLibGenerator } from './k-lib';
+import { KLibGeneratorSchema } from './schema';
 
-describe('angular-lib-generator generator', () => {
+describe('k-lib generator', () => {
   let tree: Tree;
-  const options: AngularLibGeneratorGeneratorSchema = { name: 'test' };
+  const options: KLibGeneratorSchema = { name: 'test' };
 
   beforeEach(() => {
     tree = createTreeWithEmptyWorkspace();
   });
 
   it('should run successfully', async () => {
-    await angularLibGeneratorGenerator(tree, options);
+    await kLibGenerator(tree, options);
     const config = readProjectConfiguration(tree, 'test');
     expect(config).toBeDefined();
   });

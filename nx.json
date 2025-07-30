@@ -111,12 +111,7 @@
     "version": {
       "preVersionCommand": "npx nx run-many -t build",
       "manifestRootsToUpdate": ["dist/{projectRoot}"],
-      "preserveLocalDependencyProtocols": false,
-      "currentVersionResolver": "disk"
-    },
-    "changelog": {
-      "automaticFromRef": false
-    },
-    "projectsRelationship": "fixed"
+      "preserveLocalDependencyProtocols": false
+    }
   }
 }
