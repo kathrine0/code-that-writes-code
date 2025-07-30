@@ -33,6 +33,11 @@
             "input": "./tools/k-tools",
             "glob": "executors.json",
             "output": "."
+          },
+          {
+            "input": "./tools/k-tools",
+            "glob": "migrations.json",
+            "output": "."
           }
         ]
       }

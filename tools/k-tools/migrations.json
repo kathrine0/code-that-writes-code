@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "k-migration": {
+      "version": "0.0.54",
+      "description": "Migration for v0.0.54",
+      "implementation": "./src/generators/k-migration/k-migration"
+    }
+  }
+}
