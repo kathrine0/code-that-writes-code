@@ -15,6 +15,11 @@
       "factory": "./src/generators/k-lib/k-lib",
       "schema": "./src/generators/k-lib/schema.json",
       "description": "k-lib generator"
+    },
+    "k-app": {
+      "factory": "./src/generators/k-app/k-app",
+      "schema": "./src/generators/k-app/schema.json",
+      "description": "k-app generator"
     }
   }
 }
