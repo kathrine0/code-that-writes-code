@@ -1,0 +1,14 @@
+{
+  "executors": {
+    "version-publish": {
+      "implementation": "./src/executors/version-publish/version-publish",
+      "schema": "./src/executors/version-publish/schema.json",
+      "description": "version-publish executor"
+    },
+    "publish-all": {
+      "implementation": "./src/executors/publish-all/publish-all",
+      "schema": "./src/executors/publish-all/schema.json",
+      "description": "publish-all executor"
+    }
+  }
+}

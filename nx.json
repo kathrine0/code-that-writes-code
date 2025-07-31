@@ -88,6 +88,7 @@
       "preVersionCommand": "npx nx run-many -t build",
       "manifestRootsToUpdate": ["dist/{projectRoot}"],
       "preserveLocalDependencyProtocols": false
-    }
+    },
+    "projectsRelationship": "independent"
   }
 }

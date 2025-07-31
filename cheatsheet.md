@@ -49,3 +49,25 @@ nx generate @nx/plugin:migration --path=tools/k-tools/src/generators/k-migration
 nx migrate @kathrine0/k-tools@0.0.54
 npm install
 npx nx migrate --run-migrations
+
+## Executor
+
+nx generate executor tools/k-tools/src/executors/version-publish/version-publish
+
+"version-publish": {
+  "executor": "@kathrine0/k-tools:version-publish",
+  "options": {}
+}
+
+nx run k-tools:version-publish --specifier=<version>
+
+## Composable Executor
+
+nx generate executor tools/k-tools/src/executors/publish-all/publish-all
+
+"publish-all": {
+  "executor": "@kathrine0/k-tools:publish-all"
+}
+
+
+nx publish-all --specifier=<version>

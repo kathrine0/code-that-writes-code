@@ -42,6 +42,12 @@
         ]
       }
     },
+    "version-publish": {
+      "executor": "@kathrine0/k-tools:version-publish",
+      "options": {
+        "buildPath": "dist/{projectRoot}"
+      }
+    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

@@ -14,5 +14,6 @@
   "generators": "./generators.json",
   "nx-migrations": {
     "migrations": "./migrations.json"
-  }
+  },
+  "executors": "./executors.json"
 }
