@@ -15,9 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@kathrine0/document-list": ["libs/document-list/src/index.ts"],
-      "@kathrine0/k-tools": ["tools/k-tools/src/index.ts"]
+      "@kathrine0/document-list": ["libs/document-list/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules", "tmp", ".__resources"]
 }

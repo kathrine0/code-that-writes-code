@@ -22,12 +22,6 @@
         "assets": ["tools/create-workspace/*.md"]
       }
     },
-    "version-publish": {
-      "executor": "@kathrine0/k-tools:version-publish",
-      "options": {
-        "buildPath": "dist/{projectRoot}"
-      }
-    },
     "nx-release-publish": {
       "options": {
         "packageRoot": "dist/{projectRoot}"

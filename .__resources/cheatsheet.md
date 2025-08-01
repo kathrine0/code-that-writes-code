@@ -71,3 +71,11 @@ nx generate executor tools/k-tools/src/executors/publish-all/publish-all
 
 
 nx publish-all --specifier=<version>
+
+
+
+
+## package.json publish 
+
+"publish:k-tools": "npm publish ./dist/tools/k-tools",
+"publish:create-workspace": "npm publish ./dist/tools/create-workspace"

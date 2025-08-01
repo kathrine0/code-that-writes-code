@@ -5,9 +5,7 @@
   "scripts": {
     "start": "nx serve my-app",
     "build": "nx build my-app",
-    "build:all": "nx run-many --target=build",
-    "publish:k-tools": "npm publish ./dist/tools/k-tools",
-    "publish:create-workspace": "npm publish ./dist/tools/create-workspace"
+    "build:all": "nx run-many --target=build"
   },
   "private": true,
   "dependencies": {

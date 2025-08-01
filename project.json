@@ -9,9 +9,6 @@
         "config": ".verdaccio/config.yml",
         "storage": "tmp/local-registry/storage"
       }
-    },
-    "publish-all": {
-      "executor": "@kathrine0/k-tools:publish-all"
     }
   }
 }
