@@ -70,17 +70,6 @@ function normalizeOptions(
   };
 }
 
-function generateAdditionalFiles(tree: Tree, options: GeneratorOptions) {
-  const projectRoot = options.directory;
-
-  generateFiles(
-    tree,
-    path.join(__dirname, 'files'),
-    path.relative(path.join(tree.root), path.join(process.cwd(), projectRoot)),
-    options
-  );
-}
-
 function prettifyName(name: string): string {
   return name
     .split('-')
@@ -91,6 +80,18 @@ function prettifyName(name: string): string {
 function getLastPartOfPath(path: string): string {
   const parts = path.split('/');
   return parts[parts.length - 1];
+}
+
+
+function generateAdditionalFiles(tree: Tree, options: GeneratorOptions) {
+  const projectRoot = options.directory;
+
+  generateFiles(
+    tree,
+    path.join(__dirname, 'files'),
+    path.relative(path.join(tree.root), path.join(process.cwd(), projectRoot)),
+    options
+  );
 }
 
 interface PluginConfig {

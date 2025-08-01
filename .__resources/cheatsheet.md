@@ -1,5 +1,16 @@
 # Code that writes code
 
+- add plugin
+- add library generator
+  - run it
+  - insert `libraryGenerator`
+  - extend schema.json `lib1-schema`
+  - extend schema.d.ts `lib2-schema-implementation`
+  - normalize options `lib3-normalize-options` & `lib4-normalize-options-implementation`
+  - modify plugin.json `lib5-modify-plugin-json`
+  - modify-app-routes `lib6-modify-app-routes`
+- add app generator
+
 ## Basic Generator
 
 nx add @nx/plugin

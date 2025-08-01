@@ -9,8 +9,6 @@ export interface KLibGeneratorSchema {
 export interface GeneratorOptions {
   name: string;
   prettyName: string;
-  subtitle: string;
-  description: string;
   route: string;
   importPath: string;
   directory: string;
