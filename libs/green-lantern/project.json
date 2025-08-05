@@ -1,7 +1,7 @@
 {
-  "name": "document-list",
+  "name": "Green Lantern",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/document-list/src",
+  "sourceRoot": "libs/green-lantern/src",
   "prefix": "lib",
   "projectType": "library",
   "release": {
@@ -17,14 +17,14 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/document-list/ng-package.json"
+        "project": "libs/green-lantern/ng-package.json"
       },
       "configurations": {
         "production": {
-          "tsConfig": "libs/document-list/tsconfig.lib.prod.json"
+          "tsConfig": "libs/green-lantern/tsconfig.lib.prod.json"
         },
         "development": {
-          "tsConfig": "libs/document-list/tsconfig.lib.json"
+          "tsConfig": "libs/green-lantern/tsconfig.lib.json"
         }
       },
       "defaultConfiguration": "production"
@@ -38,7 +38,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/document-list/jest.config.ts"
+        "jestConfig": "libs/green-lantern/jest.config.ts"
       }
     },
     "lint": {

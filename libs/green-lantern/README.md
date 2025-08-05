@@ -1,7 +1,7 @@
-# document-list
+# Green Lantern
 
 This library was generated with [Nx](https://nx.dev).
 
 ## Running unit tests
 
-Run `nx test document-list` to execute the unit tests.
+Run `nx test Green Lantern` to execute the unit tests.

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DocumentList } from './document-list';
+import { GreenLantern } from './Green Lantern';
 
-describe('DocumentList', () => {
-  let component: DocumentList;
-  let fixture: ComponentFixture<DocumentList>;
+describe('GreenLantern', () => {
+  let component: GreenLantern;
+  let fixture: ComponentFixture<GreenLantern>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DocumentList],
+      imports: [GreenLantern],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DocumentList);
+    fixture = TestBed.createComponent(GreenLantern);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

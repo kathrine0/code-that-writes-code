@@ -1,35 +1,7 @@
 [
   {
-    "name": "Batman",
-    "image": "batman.jpg",
-    "route": "/document-list"
-  },
-  {
-    "name": "Aquaman",
-    "image": "aquaman.jpg",
-    "route": "/document-list"
-  },
-  {
-    "name": "Catwoman",
-    "image": "catwoman.jpg",
-    "route": "/document-list"
-  },
-  {
-    "name": "flash",
-    "image": "flash.jpg",
-    "route": "/document-list"
-  },
-  {
-    "name": "green lantern",
+    "name": "Green Lantern",
     "image": "green_lantern.jpg",
-    "route": "/document-list"
-  },
-  {
-    "name": "superman",
-    "image": "superman.jpg",
-    "route": "/document-list"
-  },
-  {
-    "name": "Unknown Superhero"
+    "route": "green-lantern"
   }
 ]

@@ -1,11 +1,4 @@
-import {
-  formatFiles,
-  generateFiles,
-  getProjects,
-  Tree,
-  updateJson,
-  names,
-} from '@nx/devkit';
+import { formatFiles, getProjects, Tree, updateJson, names } from '@nx/devkit';
 import { GeneratorOptions, KLibGeneratorSchema } from './schema';
 import { libraryGenerator } from '@nx/angular/generators';
 import { Schema } from '@nx/angular/src/generators/library/schema';
@@ -14,7 +7,6 @@ import * as j from 'jscodeshift';
 import { parse } from 'recast/parsers/typescript';
 
 export async function kLibGenerator(tree: Tree, options: KLibGeneratorSchema) {
-
   const normalizedOptions = normalizeOptions(options);
 
   const schema: Schema = {
@@ -28,9 +20,6 @@ export async function kLibGenerator(tree: Tree, options: KLibGeneratorSchema) {
 
   await libraryGenerator(tree, schema);
 
-  // generate app files
-  generateAdditionalFiles(tree, normalizedOptions);
-
   // modify items.json file
   modifyItemsJson(tree, normalizedOptions);
 
@@ -43,61 +32,14 @@ export async function kLibGenerator(tree: Tree, options: KLibGeneratorSchema) {
 
 export default kLibGenerator;
 
-function normalizeOptions(
-  options: KLibGeneratorSchema
-): GeneratorOptions {
-  const name =
-    options.name ?? getLastPartOfPath(options.directory).toLowerCase();
-
-  const componentName = names(name).className;
-  const prettyName = prettifyName(name);
-  const subtitle = options.subtitle ?? `${prettyName} Subtitle`;
-  const description =
-    options.description ??
-    `This is the default description for the ${prettyName} library. It provides essential features and functionalities that enhance the overall user experience.`;
-  const route = names(name).fileName;
-  const importPath = `@kathrine0/${names(name).fileName}`;
-
+function normalizeOptions(options: KLibGeneratorSchema): GeneratorOptions {
   return {
     ...options,
-    name,
-    componentName,
-    subtitle,
-    description,
-    route,
-    importPath,
-    prettyName,
+    directory: options.directory || names(options.name).fileName,
+    route: names(options.name).fileName,
+    importPath: `@kathrine0/${names(options.name).fileName}`,
+    componentName: names(options.name).className,
   };
-}
-
-function generateAdditionalFiles(tree: Tree, options: GeneratorOptions) {
-  const projectRoot = options.directory;
-
-  generateFiles(
-    tree,
-    path.join(__dirname, 'files'),
-    path.relative(path.join(tree.root), path.join(process.cwd(), projectRoot)),
-    options
-  );
-}
-
-function prettifyName(name: string): string {
-  return name
-    .split('-')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-}
-
-function getLastPartOfPath(path: string): string {
-  const parts = path.split('/');
-  return parts[parts.length - 1];
-}
-
-interface ItemsConfig {
-  name: string;
-  subtitle: string;
-  description: string;
-  route: string;
 }
 
 function modifyItemsJson(tree: Tree, options: GeneratorOptions) {
@@ -114,12 +56,11 @@ function modifyItemsJson(tree: Tree, options: GeneratorOptions) {
     tree.write(itemsPath, JSON.stringify([], null, 2));
   }
 
-  updateJson(tree, itemsPath, (json: ItemsConfig[]) => {
-    if (!json.some((p: ItemsConfig) => p.name === options.name)) {
+  updateJson(tree, itemsPath, (json) => {
+    if (!json.some((p) => p.name === options.name)) {
       json.push({
-        name: options.prettyName,
-        subtitle: options.subtitle,
-        description: options.description,
+        name: options.name,
+        image: options.image,
         route: options.route,
       });
     }
@@ -133,15 +74,7 @@ function modifyAppRoutes(tree: Tree, options: GeneratorOptions) {
     options.targetApp
   )?.sourceRoot;
 
-  if (!targetProjectRoot) {
-    throw new Error(`Target project "${options.targetApp}" not found.`);
-  }
-
   const routesPath = path.join(targetProjectRoot, 'app', 'app.routes.ts');
-
-  if (!tree.exists(routesPath)) {
-    throw new Error(`Routes file "${routesPath}" does not exist.`);
-  }
 
   const routeTemplate = `
     ({
@@ -149,18 +82,15 @@ function modifyAppRoutes(tree: Tree, options: GeneratorOptions) {
       loadComponent: () => import('${options.importPath}').then((m) => m.${options.componentName})
     })
   `;
-  const tsNode = j(routeTemplate).find(j.ObjectExpression).get(0).node;
 
   const content = tree.read(routesPath, 'utf-8');
-  if (!content) {
-    throw new Error(`Could not read routes file "${routesPath}".`);
-  }
 
   const newContent = j(content, { parser: { parse } })
     .find(j.ExportNamedDeclaration)
     .find(j.VariableDeclaration)
     .find(j.ArrayExpression)
     .forEach((path) => {
+      const tsNode = j(routeTemplate).find(j.ObjectExpression).get(0).node;
       path.node.elements.push(tsNode);
     })
     .toSource({ quote: 'single', trailingComma: true });

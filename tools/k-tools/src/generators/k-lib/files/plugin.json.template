@@ -1,6 +1,0 @@
-{
-  "name": "<%= prettyName %>",
-  "subtitle": "<%= subtitle %>",
-  "description": "<%= description %>",
-  "route": "/<%= route %>"
-}

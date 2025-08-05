@@ -1,7 +1,7 @@
 <div class="app-container">
   <!-- Header/Navigation -->
   <mat-toolbar class="app-header">
-    <span class="app-title"><strong><%= prettyName %></strong> - Code That Writes Code</span>
+    <span class="app-title"><strong><%= name %></strong> - Code That Writes Code</span>
     <span class="spacer"></span>
     <button matButton>
       <mat-icon>home</mat-icon>

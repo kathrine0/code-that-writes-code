@@ -1,8 +1,8 @@
 export default {
-  displayName: 'document-list',
+  displayName: 'Green Lantern',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/libs/document-list',
+  coverageDirectory: '../../coverage/libs/green-lantern',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
