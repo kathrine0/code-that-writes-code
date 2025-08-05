@@ -1,0 +1,23 @@
+{
+  "migration": {
+    "scope": "javascript,typescript",
+    "prefix": "migration-generator",
+    "body": [
+      "const projects = getProjects(host);",
+      "",
+      "projects.forEach((project, name) => {",
+      "  if (project.projectType === 'application') {",
+      "    const path = join(project.sourceRoot, 'items.json');",
+      "",
+      "    updateJson(host, path, (json) => {",
+      "      return json.map((item) => ({",
+      "        ...item,",
+      "        newProperty: \"newValue\",",
+      "      }));",
+      "    });",
+      "  }",
+      "});"
+    ],
+    "description": "k-preset generator snippet"
+  }
+}

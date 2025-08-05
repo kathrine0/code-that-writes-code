@@ -1,0 +1,15 @@
+{
+  "preset": {
+    "scope": "javascript,typescript",
+    "prefix": "preset-generator",
+    "body": [
+      "return await import('../k-app/k-app').then(({ kAppGenerator }) =>",
+      "  kAppGenerator(tree, {",
+      "    ...options,",
+      "    directory: `apps/${names(options.name).fileName}`,",
+      "  })",
+      ");"
+    ],
+    "description": "k-preset generator snippet"
+  }
+}
