@@ -7,7 +7,7 @@ export default function update(host: Tree) {
 
   projects.forEach((project, name) => {
     if (project.projectType === 'library') {
-      const path = join(project.root, 'plugin.json');
+      const path = join(project.root, 'items.json');
 
       updateJson(host, path, (json) => {
         return {

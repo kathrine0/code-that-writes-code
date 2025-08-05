@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx serve my-app",
-    "build": "nx build my-app",
+    "start": "nx serve dc-fandom",
+    "build": "nx build dc-fandom",
     "build:all": "nx run-many --target=build",
     "publish:k-tools": "npm publish ./dist/tools/k-tools",
     "publish:create-workspace": "npm publish ./dist/tools/create-workspace"
@@ -41,7 +41,7 @@
     "@nx/js": "21.3.5",
     "@nx/playwright": "^21.3.0",
     "@nx/plugin": "^21.3.0",
-    "@nx/web": "^21.3.0",
+    "@nx/web": "21.3.4",
     "@nx/workspace": "^21.3.0",
     "@playwright/test": "^1.36.0",
     "@schematics/angular": "~20.1.0",

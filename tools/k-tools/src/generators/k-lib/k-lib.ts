@@ -31,8 +31,8 @@ export async function kLibGenerator(tree: Tree, options: KLibGeneratorSchema) {
   // generate app files
   generateAdditionalFiles(tree, normalizedOptions);
 
-  // modify plugins.json file
-  modifyPluginJson(tree, normalizedOptions);
+  // modify items.json file
+  modifyItemsJson(tree, normalizedOptions);
 
   // modify routing
   modifyAppRoutes(tree, normalizedOptions);
@@ -93,14 +93,14 @@ function getLastPartOfPath(path: string): string {
   return parts[parts.length - 1];
 }
 
-interface PluginConfig {
+interface ItemsConfig {
   name: string;
   subtitle: string;
   description: string;
   route: string;
 }
 
-function modifyPluginJson(tree: Tree, options: GeneratorOptions) {
+function modifyItemsJson(tree: Tree, options: GeneratorOptions) {
   const targetProjectRoot = getProjects(tree).get(
     options.targetApp
   )?.sourceRoot;
@@ -109,13 +109,13 @@ function modifyPluginJson(tree: Tree, options: GeneratorOptions) {
     throw new Error(`Target project "${options.targetApp}" not found.`);
   }
 
-  const pluginsPath = path.join(targetProjectRoot, 'plugins.json');
-  if (!tree.exists(pluginsPath)) {
-    tree.write(pluginsPath, JSON.stringify([], null, 2));
+  const itemsPath = path.join(targetProjectRoot, 'items.json');
+  if (!tree.exists(itemsPath)) {
+    tree.write(itemsPath, JSON.stringify([], null, 2));
   }
 
-  updateJson(tree, pluginsPath, (json: PluginConfig[]) => {
-    if (!json.some((p: PluginConfig) => p.name === options.name)) {
+  updateJson(tree, itemsPath, (json: ItemsConfig[]) => {
+    if (!json.some((p: ItemsConfig) => p.name === options.name)) {
       json.push({
         name: options.prettyName,
         subtitle: options.subtitle,

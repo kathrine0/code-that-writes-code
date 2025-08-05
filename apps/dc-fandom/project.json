@@ -1,27 +1,27 @@
 {
-  "name": "my-app",
+  "name": "dc-fandom",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "apps/my-app/src",
+  "sourceRoot": "apps/dc-fandom/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/my-app",
-        "browser": "apps/my-app/src/main.ts",
-        "polyfills": [],
-        "tsConfig": "apps/my-app/tsconfig.app.json",
+        "outputPath": "dist/apps/dc-fandom",
+        "browser": "apps/dc-fandom/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/dc-fandom/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/my-app/public"
+            "input": "apps/dc-fandom/public"
           }
         ],
-        "styles": ["apps/my-app/src/styles.scss"]
+        "styles": ["apps/dc-fandom/src/styles.scss"]
       },
       "configurations": {
         "production": {
@@ -52,10 +52,10 @@
       "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "my-app:build:production"
+          "buildTarget": "dc-fandom:build:production"
         },
         "development": {
-          "buildTarget": "my-app:build:development"
+          "buildTarget": "dc-fandom:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -63,7 +63,7 @@
     "extract-i18n": {
       "executor": "@angular/build:extract-i18n",
       "options": {
-        "buildTarget": "my-app:build"
+        "buildTarget": "dc-fandom:build"
       }
     },
     "lint": {
@@ -73,16 +73,15 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/my-app/jest.config.ts"
+        "jestConfig": "apps/dc-fandom/jest.config.ts"
       }
     },
     "serve-static": {
       "continuous": true,
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "my-app:build",
-        "port": 4200,
-        "staticFilePath": "dist/apps/my-app/browser",
+        "buildTarget": "dc-fandom:build",
+        "staticFilePath": "dist/apps/dc-fandom/browser",
         "spa": true
       }
     }
