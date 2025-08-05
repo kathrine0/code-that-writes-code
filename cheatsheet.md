@@ -50,7 +50,7 @@ nx generate @nx/plugin:migration --path=tools/k-tools/src/generators/k-migration
 
 ### run migration
 
-nx migrate @kathrine0/k-tools@0.0.54
+nx migrate @kathrine0/k-tools
 npm install
 npx nx migrate --run-migrations
 

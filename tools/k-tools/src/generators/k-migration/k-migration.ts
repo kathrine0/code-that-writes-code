@@ -6,14 +6,14 @@ export default function update(host: Tree) {
   const projects = getProjects(host);
 
   projects.forEach((project, name) => {
-    if (project.projectType === 'library') {
-      const path = join(project.root, 'items.json');
+    if (project.projectType === 'application') {
+      const path = join(project.sourceRoot, 'items.json');
 
       updateJson(host, path, (json) => {
-        return {
-          ...json,
+        return json.map((item) => ({
+          ...item,
           newProperty: "newValue",
-        };
+        }));
       });
     }
   });
