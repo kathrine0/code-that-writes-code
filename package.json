@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx serve my-app",
-    "build": "nx build my-app",
+    "start": "nx serve dc-fandom",
+    "build": "nx build dc-fandom",
     "build:all": "nx run-many --target=build"
   },
   "private": true,

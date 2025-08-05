@@ -1,0 +1,37 @@
+@use '@angular/material' as mat;
+
+mat-toolbar {
+  @include mat.toolbar-overrides(
+    (
+      container-background-color: var(--mat-sys-surface),
+      container-text-color: var(--mat-sys-on-primary-container),
+      title-text-font: 'Bangers',
+      title-text-size: 2rem,
+    )
+  );
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.app-content {
+  flex: 1;
+  padding: 1rem;
+}
+
+.footer-toolbar {
+  font-size: 0.875rem;
+}
