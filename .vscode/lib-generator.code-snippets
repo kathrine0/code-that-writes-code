@@ -1,0 +1,181 @@
+{
+  // Place your code-that-writes-code workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+  // Placeholders with the same ids are connected.
+  // Example:
+  // "Print to console": {
+  // 	"scope": "javascript,typescript",
+  // 	"prefix": "log",
+  // 	"body": [
+  // 		"console.log('$1');",
+  // 		"$2"
+  // 	],
+  // 	"description": "Log output to console"
+  // }
+  "lib-schema": {
+    "scope": "json",
+    "prefix": "lib-schema",
+    "body": [
+      "\"properties\": {",
+      "  \"name\": {",
+      "    \"type\": \"string\",",
+      "    \"description\": \"The name of the library.\",",
+      "    \"x-priority\": \"important\"",
+      "  },",
+      "  \"directory\": {",
+      "    \"type\": \"string\",",
+      "    \"description\": \"The directory of the library.\"",
+      "  },",
+      "  \"image\": {",
+      "    \"type\": \"string\",",
+      "    \"description\": \"An image file for the library.\",",
+      "    \"x-prompt\": \"What is the image file for the library?\"",
+      "  },",
+      "  \"targetApp\": {",
+      "    \"type\": \"string\",",
+      "    \"description\": \"The name of the target application where the library will be created.\",",
+      "    \"x-prompt\": \"Which application do you want to create the library in?\",",
+      "    \"default\": \"dc-fandom\"",
+      "  }",
+      "},",
+      "\"required\": [\"name\", \"image\", \"targetApp\"]"
+    ],
+    "description": "k-lib generator schema snippet"
+  },
+  "lib-schema-implementation": {
+    "scope": "javascript,typescript",
+    "prefix": "lib1-schema-implementation",
+    "body": [
+      "export interface KLibGeneratorSchema {",
+      "  name: string;",
+      "  image: string;",
+      "  targetApp: string;",
+      "  directory?: string;",
+      "}",
+      "",
+      "export interface GeneratorOptions extends KLibGeneratorSchema {",
+      "  directory: string;",
+      "  route: string;",
+      "  importPath: string;",
+      "  componentName: string;",
+      "}"
+    ],
+    "description": "k-lib generator schema implementation snippet"
+  },
+  "angular-generator": {
+    "scope": "javascript,typescript",
+    "prefix": "lib2-angular-generator",
+    "body": [
+      "// import { libraryGenerator } from '@nx/angular/generators';",
+      "await libraryGenerator(tree, schema);"
+    ],
+    "description": "k-lib reuse angular generator snippet"
+  },
+  "normalize-options": {
+    "scope": "javascript,typescript",
+    "prefix": "lib3-normalize-options",
+    "body": [
+      "const normalizedOptions = normalizeOptions(options);",
+      "",
+      "const schema: Schema = {",
+      "  ...normalizedOptions,",
+      "  buildable: true,",
+      "  publishable: true,",
+      "  standalone: true,",
+      "  changeDetection: 'OnPush',",
+      "  style: 'scss',",
+      "};"
+    ],
+    "description": "k-lib normalize options snippet"
+  },
+  "normalize-options-implementation": {
+    "scope": "javascript,typescript",
+    "prefix": "lib4-normalize-options-implementation",
+    "body": [
+      "function normalizeOptions(options: KLibGeneratorSchema): GeneratorOptions {",
+      "  return {",
+      "    ...options,",
+      "    directory: options.directory || names(options.name).fileName,",
+      "    route: names(options.name).fileName,",
+      "    importPath: `@kathrine0/${names(options.name).fileName}`,",
+      "    componentName: names(options.name).className,",
+      "  };",
+      "}"
+    ],
+    "description": "k-lib normalize options implementation snippet"
+  },
+  "modify-plugin-json": {
+    "scope": "javascript,typescript",
+    "prefix": "lib5-modify-items-json",
+    "body": [
+      "function modifyItemsJson(tree: Tree, options: GeneratorOptions) {",
+      "  const targetProjectRoot = getProjects(tree).get(",
+      "    options.targetApp",
+      "  )?.sourceRoot;",
+      "",
+      "  if (!targetProjectRoot) {",
+      "    throw new Error(`Target project \"${options.targetApp}\" not found.`);",
+      "  }",
+      "",
+      "  const itemsPath = path.join(targetProjectRoot, 'items.json');",
+      "",
+      "  if (!tree.exists(itemsPath)) {",
+      "    tree.write(itemsPath, JSON.stringify([], null, 2));",
+      "  }",
+      "",
+      "  updateJson(tree, itemsPath, (json) => {",
+      "    if (!json.some((p) => p.name === options.name)) {",
+      "      json.push({",
+      "        name: options.name,",
+      "        image: options.image,",
+      "        route: options.route,",
+      "      });",
+      "    }",
+      "",
+      "    return json;",
+      "  });",
+      "}"
+    ],
+    "description": "k-lib modify plugin.json snippet"
+  },
+  "modify-app-routes": {
+    "scope": "javascript,typescript",
+    "prefix": "lib6-modify-app-routes",
+    "body": [
+      "// import * as j from 'jscodeshift';",
+      "// import { parse } from 'recast/parsers/typescript';",
+      "function modifyAppRoutes(tree: Tree, options: GeneratorOptions) {",
+      "  const targetProjectRoot = getProjects(tree).get(",
+      "    options.targetApp",
+      "  )?.sourceRoot;",
+      "",
+      "  const routesPath = path.join(targetProjectRoot, 'app', 'app.routes.ts');",
+      "",
+      "  const routeTemplate = `",
+      "    ({",
+      "      path: '${options.route}',",
+      "      loadComponent: () => import('${options.importPath}').then((m) => m.${options.componentName})",
+      "    })",
+      "  `;",
+      "",
+      "  const content = tree.read(routesPath, 'utf-8');",
+      "",
+      "  const newContent = j(content, { parser: { parse } })",
+      "    .find(j.ExportNamedDeclaration)",
+      "    .find(j.VariableDeclaration)",
+      "    .find(j.ArrayExpression)",
+      "    .forEach((path) => {",
+      "      const tsNode = j(routeTemplate).find(j.ObjectExpression).get(0).node;",
+      "      path.node.elements.push(tsNode);",
+      "    })",
+      "    .toSource({ quote: 'single', trailingComma: true });",
+      "",
+      "  tree.write(routesPath, newContent);",
+      "}"
+    ],
+    "description": "k-lib modify app routes snippet"
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "app-schema": {
+    "scope": "json",
+    "prefix": "app-schema",
+    "body": [
+      "\"properties\": {",
+      "  \"name\": {",
+      "    \"type\": \"string\",",
+      "    \"description\": \"\",",
+      "    \"\\$default\": {",
+      "      \"\\$source\": \"argv\",",
+      "      \"index\": 0",
+      "    },",
+      "    \"x-prompt\": \"What name would you like to use?\"",
+      "  },",
+      "  \"directory\": {",
+      "    \"type\": \"string\",",
+      "    \"description\": \"The directory of the library.\"",
+      "  }",
+      "},",
+      "\"required\": [\"name\"]"
+    ],
+    "description": "k-app generator schema snippet"
+  },
+  "app-schema-implementation": {
+    "scope": "javascript,typescript",
+    "prefix": "app1-schema-implementation",
+    "body": [
+      "export interface KAppGeneratorSchema {",
+      "  name: string;",
+      "  directory?: string;",
+      "}",
+      "",
+      "export interface GeneratorOptions extends KAppGeneratorSchema {",
+      "  directory: string;",
+      "}"
+    ],
+    "description": "k-app generator schema implementation snippet"
+  },
+  "app-generator": {
+    "scope": "javascript,typescript",
+    "prefix": "app2-generator",
+    "body": [
+      "  const normalizedOptions: GeneratorOptions = {",
+      "    ...options,",
+      "    directory: options.directory || names(options.name).fileName,",
+      "  };",
+      "",
+      "  await applicationGenerator(tree, {",
+      "    ...normalizedOptions,",
+      "    skipFormat: true,",
+      "    e2eTestRunner: E2eTestRunner.None,",
+      "    style: 'scss',",
+      "  });",
+      "",
+      "  generateAdditionalFiles(tree, normalizedOptions);",
+      "",
+      "  const tasks: GeneratorCallback[] = [];",
+      "  tasks.push(",
+      "    addDependenciesToPackageJson(",
+      "      tree,",
+      "      { '@angular/material': '~20.1.0', '@angular/cdk': '~20.1.0' },",
+      "      {}",
+      "    )",
+      "  );",
+      "",
+      "  await formatFiles(tree);",
+      "",
+      "  return runTasksInSerial(...tasks);"
+    ],
+    "description": "k-app generator snippet"
+  },
+  "generate-app-files": {
+    "scope": "javascript,typescript",
+    "prefix": "app3-generate-files",
+    "body": [
+      "function generateAdditionalFiles(",
+      "  tree: Tree,",
+      "  options: GeneratorOptions",
+      ") {",
+      "  const srcFolder = path.join(__dirname, 'files');",
+      "",
+      "  const target = path.relative(",
+      "    path.join(tree.root),",
+      "    path.join(process.cwd(), options.directory)",
+      "  );",
+      "",
+      "  tree.delete(joinPathFragments(target, 'src', 'app'));",
+      "",
+      "  generateFiles(tree, srcFolder, target, options);",
+      "}"
+    ],
+    "description": "k-app generate additional files snippet"
+  }
+}

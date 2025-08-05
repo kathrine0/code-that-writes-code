@@ -1,0 +1,79 @@
+{
+  "version-publish-schema": {
+    "scope": "json",
+    "prefix": "version-publish1-schema",
+    "body": [
+      "\"properties\": {",
+      "  \"specifier\": {",
+      "    \"type\": \"string\",",
+      "    \"description\": \"The version specifier to publish.\"",
+      "  },",
+      "  \"buildPath\": {",
+      "    \"type\": \"string\",",
+      "    \"description\": \"The path to the build output directory.\",",
+      "    \"default\": \"dist\"",
+      "  }",
+      "},",
+      "\"required\": [\"specifier\", \"buildPath\"]"
+    ],
+    "description": "version-publish executor schema snippet"
+  },
+  "version-publish-schema-implementation": {
+    "scope": "javascript,typescript",
+    "prefix": "version-publish2-schema-implementation",
+    "body": [
+      "export interface VersionPublishExecutorSchema {",
+      "  specifier: string;",
+      "  buildPath: string;",
+      "}"
+    ],
+    "description": "version-publish executor implementation snippet"
+  },
+  "version-publish-executor": {
+    "scope": "javascript,typescript",
+    "prefix": "version-publish3-executor",
+    "body": [
+      "const runExecutor: PromiseExecutor<VersionPublishExecutorSchema> = async (",
+      "  options: VersionPublishExecutorSchema, context: ExecutorContext",
+      ") => {",
+      "  console.log(`Executor ran for VersionPublish for ${context.projectName} with options:`, options);",
+      "",
+      "  try {",
+      "    execSync(`nx release version --specifier=${options.specifier} --projects=${context.projectName}`, {",
+      "      stdio: 'inherit',",
+      "      cwd: process.cwd(),",
+      "    });",
+      "",
+      "    execSync(`npm publish ${options.buildPath}`, {",
+      "      stdio: 'inherit',",
+      "      cwd: process.cwd(),",
+      "    });",
+      "",
+      "  } catch (error) {",
+      "    console.error('Error during version publish:', error);",
+      "    return {",
+      "      success: false,",
+      "    };",
+      "  }",
+      "",
+      "  return {",
+      "    success: true,",
+      "  };",
+      "};"
+    ],
+    "description": "version-publish executor snippet"
+  },
+  "version-publish-project-json": {
+    "scope": "json",
+    "prefix": "version-publish4-project-json",
+    "body": [
+      "\"version-publish\": {",
+      "  \"executor\": \"@kathrine0/k-tools:version-publish\",",
+      "  \"options\": {",
+      "    \"buildPath\": \"dist/{projectRoot}\"",
+      "  }",
+      "},"
+    ],
+    "description": "version-publish project.json snippet"
+  }
+}

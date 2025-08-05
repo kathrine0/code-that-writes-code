@@ -14,7 +14,7 @@
 ## Basic Generator
 
 nx add @nx/plugin
-nx generate @nx/plugin:plugin tools/k-tools
+nx generate plugin tools/k-tools
 nx generate @nx/plugin:generator tools/k-tools/src/generators/basic-generator/basic-generator
 
 nx generate @kathrine0/k-tools:basic-generator first-lib
@@ -84,13 +84,13 @@ nx generate executor tools/k-tools/src/executors/publish-all/publish-all
   "executor": "@kathrine0/k-tools:publish-all"
 }
 
-
 nx publish-all --specifier=<version>
-
-
-
 
 ## package.json publish 
 
 "publish:k-tools": "npm publish ./dist/tools/k-tools",
 "publish:create-workspace": "npm publish ./dist/tools/create-workspace"
+
+
+
+find . -type d -empty -delete

@@ -1,0 +1,66 @@
+{
+  "publish-all-schema": {
+    "scope": "json",
+    "prefix": "publish-all1-schema",
+    "body": [
+      "\"properties\": {",
+      "  \"specifier\": {",
+      "    \"type\": \"string\",",
+      "    \"description\": \"The version specifier to publish.\"",
+      "  }",
+      "},",
+      "\"required\": [\"specifier\"]"
+    ],
+    "description": "publish-all executor schema snippet"
+  },
+  "publish-all-schema-implementation": {
+    "scope": "javascript,typescript",
+    "prefix": "publish-all2-schema-implementation",
+    "body": [
+      "export interface PublishAllExecutorSchema {",
+      "  specifier: string;",
+      "}"
+    ],
+    "description": "publish-all executor implementation snippet"
+  },
+  "publish-all-executor": {
+    "scope": "javascript,typescript",
+    "prefix": "publish-all3-executor",
+    "body": [
+      "const multipleExecutor: PromiseExecutor<PublishAllExecutorSchema> = async (",
+      "  options, context: ExecutorContext",
+      ") => {",
+      "",
+      "  const result = await Promise.race([",
+      "    await runExecutor(",
+      "      { project: 'k-tools', target: 'version-publish' },",
+      "      { specifier: options.specifier },",
+      "      context",
+      "    ),",
+      "    await runExecutor(",
+      "      { project: 'create-workspace', target: 'version-publish' },",
+      "      { specifier: options.specifier },",
+      "      context",
+      "    ),",
+      "  ]);",
+      "",
+      "  for await (const res of result) {",
+      "    if (!res.success) return res;",
+      "  }",
+      "",
+      "  return { success: true };",
+      "};"
+    ],
+    "description": "publish-all executor snippet"
+  },
+  "publish-all-project-json": {
+    "scope": "json",
+    "prefix": "publish-all4-project-json",
+    "body": [
+      "\"publish-all\": {",
+      "  \"executor\": \"@kathrine0/k-tools:publish-all\"",
+      "}"
+    ],
+    "description": "publish-all project.json snippet"
+  }
+}
