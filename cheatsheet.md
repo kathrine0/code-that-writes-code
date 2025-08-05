@@ -12,9 +12,13 @@ nx generate @kathrine0/k-tools:basic-generator first-lib
 
 nx generate generator tools/k-tools/src/generators/k-lib/k-lib
 
+nx generate @kathrine0/k-tools:k-lib my-lib
+
 ## Angular App Generator
 
 nx generate generator tools/k-tools/src/generators/k-app/k-app
+
+nx generate @kathrine0/k-tools:k-app my-app
 
 ## Preset
 
