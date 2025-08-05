@@ -23,9 +23,13 @@ nx generate @kathrine0/k-tools:basic-generator first-lib
 
 nx generate generator tools/k-tools/src/generators/k-lib/k-lib
 
+nx generate @kathrine0/k-tools:k-lib my-lib
+
 ## Angular App Generator
 
 nx generate generator tools/k-tools/src/generators/k-app/k-app
+
+nx generate @kathrine0/k-tools:k-app my-app
 
 ## Preset
 
@@ -57,7 +61,7 @@ nx generate @nx/plugin:migration --path=tools/k-tools/src/generators/k-migration
 
 ### run migration
 
-nx migrate @kathrine0/k-tools@0.0.54
+nx migrate @kathrine0/k-tools
 npm install
 npx nx migrate --run-migrations
 

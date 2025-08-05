@@ -1,8 +1,8 @@
 {
   "generators": {
     "k-migration": {
-      "version": "0.0.54",
-      "description": "Migration for v0.0.54",
+      "version": "0.0.76",
+      "description": "Migration for v0.0.76",
       "implementation": "./src/generators/k-migration/k-migration"
     }
   }

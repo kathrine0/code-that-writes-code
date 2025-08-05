@@ -1,4 +1,3 @@
-import { KAppGeneratorSchema } from './schema';
 import { applicationGenerator, E2eTestRunner } from '@nx/angular/generators';
 import {
   addDependenciesToPackageJson,
@@ -6,18 +5,19 @@ import {
   generateFiles,
   GeneratorCallback,
   joinPathFragments,
-  logger,
+  names,
   runTasksInSerial,
   Tree,
 } from '@nx/devkit';
 import * as path from 'path';
+import { GeneratorOptions, KAppGeneratorSchema } from './schema';
 
 export async function kAppGenerator(tree: Tree, options: KAppGeneratorSchema) {
   const tasks: GeneratorCallback[] = [];
 
-  const normalizedOptions = {
+  const normalizedOptions: GeneratorOptions = {
     ...options,
-    directory: `apps/${options.name}`,
+    directory: options.directory || names(options.name).fileName,
   };
 
   await applicationGenerator(tree, {
@@ -39,7 +39,6 @@ export async function kAppGenerator(tree: Tree, options: KAppGeneratorSchema) {
 
   await formatFiles(tree);
 
-
   return runTasksInSerial(...tasks);
 }
 
@@ -47,27 +46,16 @@ export default kAppGenerator;
 
 function generateAdditionalFiles(
   tree: Tree,
-  normalizedOptions: KAppGeneratorSchema & { directory: string }
+  options: GeneratorOptions
 ) {
-  const projectRoot = normalizedOptions.directory;
   const srcFolder = path.join(__dirname, 'files');
 
   const target = path.relative(
     path.join(tree.root),
-    path.join(process.cwd(), projectRoot)
+    path.join(process.cwd(), options.directory)
   );
 
   tree.delete(joinPathFragments(target, 'src', 'app'));
 
-  generateFiles(tree, srcFolder, target, {
-    ...normalizedOptions,
-    prettyName: prettifyName(normalizedOptions.name),
-  });
-}
-
-function prettifyName(name: string): string {
-  return name
-    .split('-')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+  generateFiles(tree, srcFolder, target, options);
 }

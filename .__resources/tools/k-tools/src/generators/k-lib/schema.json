@@ -4,37 +4,26 @@
   "title": "",
   "type": "object",
   "properties": {
-   "name": {
+    "name": {
       "type": "string",
       "description": "The name of the library.",
       "x-priority": "important"
     },
     "directory": {
       "type": "string",
-      "description": "A directory where the library is placed.",
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      },
-      "x-prompt": "Which directory do you want to create the library in?"
+      "description": "The directory of the library."
     },
-    "subtitle": {
+    "image": {
       "type": "string",
-      "description": "A subtitle for the library.",
-      "x-prompt": "What is the subtitle of the library?"
-    },
-    "description": {
-      "type": "string",
-      "description": "A description of the library.",
-      "x-prompt": "What is the description of the library?"
+      "description": "An image file for the library.",
+      "x-prompt": "What is the image file for the library?"
     },
     "targetApp": {
       "type": "string",
       "description": "The name of the target application where the library will be created.",
       "x-prompt": "Which application do you want to create the library in?",
-      "default": "my-app"
+      "default": "dc-fandom"
     }
-
   },
-  "required": ["directory", "targetApp"]
+  "required": ["name", "image", "targetApp"]
 }
