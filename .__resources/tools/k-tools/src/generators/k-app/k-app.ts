@@ -15,10 +15,6 @@ import * as path from 'path';
 export async function kAppGenerator(tree: Tree, options: KAppGeneratorSchema) {
   const tasks: GeneratorCallback[] = [];
 
-  logger.log(
-    `Generating a new Angular application with the name: ${options.name}`
-  );
-
   const normalizedOptions = {
     ...options,
     directory: `apps/${options.name}`,
