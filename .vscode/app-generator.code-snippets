@@ -85,7 +85,7 @@
       "    path.join(process.cwd(), options.directory)",
       "  );",
       "",
-      "  tree.delete(joinPathFragments(target, 'src', 'app'));",
+      "  tree.delete(path.join(target, 'src', 'app'));",
       "",
       "  generateFiles(tree, srcFolder, target, options);",
       "}"

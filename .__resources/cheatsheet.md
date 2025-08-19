@@ -93,4 +93,5 @@ nx publish-all --specifier=<version>
 
 
 
-find . -type d -empty -delete
+find . -type d -empty -delete 
+rm -rf .nx .angular dist
