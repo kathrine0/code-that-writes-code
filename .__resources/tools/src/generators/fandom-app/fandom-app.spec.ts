@@ -1,19 +1,19 @@
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { Tree, readProjectConfiguration } from '@nx/devkit';
 
-import { basicGeneratorGenerator } from './basic-generator';
-import { BasicGeneratorGeneratorSchema } from './schema';
+import { fandomAppGenerator } from './fandom-app';
+import { fandomAppGeneratorSchema } from './schema';
 
-describe('basic-generator generator', () => {
+describe('fandom-app generator', () => {
   let tree: Tree;
-  const options: BasicGeneratorGeneratorSchema = { name: 'test' };
+  const options: fandomAppGeneratorSchema = { name: 'test' };
 
   beforeEach(() => {
     tree = createTreeWithEmptyWorkspace();
   });
 
   it('should run successfully', async () => {
-    await basicGeneratorGenerator(tree, options);
+    await fandomAppGenerator(tree, options);
     const config = readProjectConfiguration(tree, 'test');
     expect(config).toBeDefined();
   });

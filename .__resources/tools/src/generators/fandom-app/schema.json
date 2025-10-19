@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/schema",
-  "$id": "KApp",
+  "$id": "fandomApp",
   "title": "",
   "type": "object",
   "properties": {

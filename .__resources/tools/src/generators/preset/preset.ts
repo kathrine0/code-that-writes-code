@@ -5,8 +5,8 @@ export async function presetGenerator(
   tree: Tree,
   options: PresetGeneratorSchema
 ) {
-  return await import('../k-app/k-app').then(({ kAppGenerator }) =>
-    kAppGenerator(tree, {
+  return await import('../fandom-app/fandom-app').then(({ fandomAppGenerator }) =>
+    fandomAppGenerator(tree, {
       ...options,
       directory: `apps/${names(options.name).fileName}`,
     })

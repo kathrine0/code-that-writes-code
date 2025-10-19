@@ -1,5 +1,5 @@
 {
-  "name": "Green Lantern",
+  "name": "green-lantern",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/green-lantern/src",
   "prefix": "lib",

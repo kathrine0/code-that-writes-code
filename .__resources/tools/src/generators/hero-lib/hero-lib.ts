@@ -1,12 +1,12 @@
 import { formatFiles, getProjects, Tree, updateJson, names } from '@nx/devkit';
-import { GeneratorOptions, KLibGeneratorSchema } from './schema';
+import { GeneratorOptions, heroLibGeneratorSchema } from './schema';
 import { libraryGenerator } from '@nx/angular/generators';
 import { Schema } from '@nx/angular/src/generators/library/schema';
 import * as path from 'path';
 import * as j from 'jscodeshift';
 import { parse } from 'recast/parsers/typescript';
 
-export async function kLibGenerator(tree: Tree, options: KLibGeneratorSchema) {
+export async function heroLibGenerator(tree: Tree, options: heroLibGeneratorSchema) {
   const normalizedOptions = normalizeOptions(options);
 
   const schema: Schema = {
@@ -30,9 +30,9 @@ export async function kLibGenerator(tree: Tree, options: KLibGeneratorSchema) {
   await formatFiles(tree);
 }
 
-export default kLibGenerator;
+export default heroLibGenerator;
 
-function normalizeOptions(options: KLibGeneratorSchema): GeneratorOptions {
+function normalizeOptions(options: heroLibGeneratorSchema): GeneratorOptions {
   return {
     ...options,
     directory: options.directory || names(options.name).fileName,

@@ -20,22 +20,22 @@
       "},",
       "\"required\": [\"name\"]"
     ],
-    "description": "k-app generator schema snippet"
+    "description": "fandom-app generator schema snippet"
   },
   "app-schema-implementation": {
     "scope": "javascript,typescript",
     "prefix": "app1-schema-implementation",
     "body": [
-      "export interface KAppGeneratorSchema {",
+      "export interface FandomAppGeneratorSchema {",
       "  name: string;",
       "  directory?: string;",
       "}",
       "",
-      "export interface GeneratorOptions extends KAppGeneratorSchema {",
+      "export interface GeneratorOptions extends FandomAppGeneratorSchema {",
       "  directory: string;",
       "}"
     ],
-    "description": "k-app generator schema implementation snippet"
+    "description": "fandom-app generator schema implementation snippet"
   },
   "app-generator": {
     "scope": "javascript,typescript",
@@ -68,7 +68,7 @@
       "",
       "  return runTasksInSerial(...tasks);"
     ],
-    "description": "k-app generator snippet"
+    "description": "fandom-app generator snippet"
   },
   "generate-app-files": {
     "scope": "javascript,typescript",
@@ -90,6 +90,6 @@
       "  generateFiles(tree, srcFolder, target, options);",
       "}"
     ],
-    "description": "k-app generate additional files snippet"
+    "description": "fandom-app generate additional files snippet"
   }
 }

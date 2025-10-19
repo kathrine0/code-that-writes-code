@@ -11,29 +11,26 @@
   - modify-app-routes `lib6-modify-app-routes`
 - add app generator
 
-## Basic Generator
+## Setup
 
 nx add @nx/plugin
-nx generate plugin tools/k-tools
-nx generate @nx/plugin:generator tools/k-tools/src/generators/basic-generator/basic-generator
-
-nx generate @kathrine0/k-tools:basic-generator first-lib
+nx generate plugin tools
 
 ## Angular Library Generator
 
-nx generate generator tools/k-tools/src/generators/k-lib/k-lib
+nx generate generator tools/src/generators/hero-lib/hero-lib
 
-nx generate @kathrine0/k-tools:k-lib my-lib
+nx generate @kathrine0/tools:hero-lib my-lib
 
 ## Angular App Generator
 
-nx generate generator tools/k-tools/src/generators/k-app/k-app
+nx generate generator tools/src/generators/fandom-app/fandom-app
 
-nx generate @kathrine0/k-tools:k-app my-app
+nx generate @kathrine0/tools:fandom-app my-app
 
 ## Preset
 
-nx generate generator tools/k-tools/src/generators/preset/preset
+nx generate generator tools/src/generators/preset/preset
 
 ### Release
 
@@ -41,57 +38,57 @@ nx local-registry
 
 nx release version --specifier=
 
-npm run publish:k-tools
+npm run publish:tools
 npm run publish:create-workspace
 
-npx create-nx-workspace my-workspace --preset=@kathrine0/k-tools
+npx create-nx-workspace my-workspace --preset=@kathrine0/tools
 
 ## Installer
 
-nx generate create-package tools/create-workspace --project k-tools --name create-workspace
+nx generate create-package create-workspace --project tools --name create-workspace
 
 change namespace to @kathrine0/create-workspace
-add dependency to @kathrine0/k-tools
+add dependency to @kathrine0/tools
 
 npx @kathrine0/create-workspace my-other-workspace
 
 ## Migration
 
-nx generate @nx/plugin:migration --path=tools/k-tools/src/generators/k-migration/k-migration --packageVersion=0.0.54
+nx generate @nx/plugin:migration --path=tools/src/generators/k-migration/k-migration --packageVersion=0.0.54
 
 ### run migration
 
-nx migrate @kathrine0/k-tools
+nx migrate @kathrine0/tools
 npm install
 npx nx migrate --run-migrations
 
 ## Executor
 
-nx generate executor tools/k-tools/src/executors/version-publish/version-publish
+nx generate executor tools/src/executors/version-publish/version-publish
 
 "version-publish": {
-  "executor": "@kathrine0/k-tools:version-publish",
+  "executor": "@kathrine0/tools:version-publish",
   "options": {}
 }
 
-nx run k-tools:version-publish --specifier=<version>
+nx run tools:version-publish --specifier=<version>
 
 ## Composable Executor
 
-nx generate executor tools/k-tools/src/executors/publish-all/publish-all
+nx generate executor tools/src/executors/publish-all/publish-all
 
 "publish-all": {
-  "executor": "@kathrine0/k-tools:publish-all"
+  "executor": "@kathrine0/tools:publish-all"
 }
 
 nx publish-all --specifier=<version>
 
-## package.json publish 
+## package.json publish
 
-"publish:k-tools": "npm publish ./dist/tools/k-tools",
-"publish:create-workspace": "npm publish ./dist/tools/create-workspace"
+"publish:k-tools": "npm publish ./dist/tools",
+"publish:create-workspace": "npm publish ./dist/create-workspace"
 
+# cleanup
 
-
-find . -type d -empty -delete 
+find . -type d -empty -delete
 rm -rf .nx .angular dist

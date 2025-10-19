@@ -10,9 +10,9 @@ import {
   Tree,
 } from '@nx/devkit';
 import * as path from 'path';
-import { GeneratorOptions, KAppGeneratorSchema } from './schema';
+import { GeneratorOptions, fandomAppGeneratorSchema } from './schema';
 
-export async function kAppGenerator(tree: Tree, options: KAppGeneratorSchema) {
+export async function fandomAppGenerator(tree: Tree, options: fandomAppGeneratorSchema) {
   const tasks: GeneratorCallback[] = [];
 
   const normalizedOptions: GeneratorOptions = {
@@ -42,7 +42,7 @@ export async function kAppGenerator(tree: Tree, options: KAppGeneratorSchema) {
   return runTasksInSerial(...tasks);
 }
 
-export default kAppGenerator;
+export default fandomAppGenerator;
 
 function generateAdditionalFiles(
   tree: Tree,

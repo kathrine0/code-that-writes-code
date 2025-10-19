@@ -43,27 +43,27 @@
       "},",
       "\"required\": [\"name\", \"image\", \"targetApp\"]"
     ],
-    "description": "k-lib generator schema snippet"
+    "description": "hero-lib generator schema snippet"
   },
   "lib-schema-implementation": {
     "scope": "javascript,typescript",
     "prefix": "lib1-schema-implementation",
     "body": [
-      "export interface KLibGeneratorSchema {",
+      "export interface HeroLibGeneratorSchema {",
       "  name: string;",
       "  image: string;",
       "  targetApp: string;",
       "  directory?: string;",
       "}",
       "",
-      "export interface GeneratorOptions extends KLibGeneratorSchema {",
+      "export interface GeneratorOptions extends HeroLibGeneratorSchema {",
       "  directory: string;",
       "  route: string;",
       "  importPath: string;",
       "  componentName: string;",
       "}"
     ],
-    "description": "k-lib generator schema implementation snippet"
+    "description": "hero-lib generator schema implementation snippet"
   },
   "angular-generator": {
     "scope": "javascript,typescript",
@@ -72,7 +72,7 @@
       "// import { libraryGenerator } from '@nx/angular/generators';",
       "await libraryGenerator(tree, schema);"
     ],
-    "description": "k-lib reuse angular generator snippet"
+    "description": "hero-lib reuse angular generator snippet"
   },
   "normalize-options": {
     "scope": "javascript,typescript",
@@ -89,13 +89,13 @@
       "  style: 'scss',",
       "};"
     ],
-    "description": "k-lib normalize options snippet"
+    "description": "hero-lib normalize options snippet"
   },
   "normalize-options-implementation": {
     "scope": "javascript,typescript",
     "prefix": "lib4-normalize-options-implementation",
     "body": [
-      "function normalizeOptions(options: KLibGeneratorSchema): GeneratorOptions {",
+      "function normalizeOptions(options: HeroLibGeneratorSchema): GeneratorOptions {",
       "  return {",
       "    ...options,",
       "    directory: options.directory || names(options.name).fileName,",
@@ -105,7 +105,7 @@
       "  };",
       "}"
     ],
-    "description": "k-lib normalize options implementation snippet"
+    "description": "hero-lib normalize options implementation snippet"
   },
   "modify-plugin-json": {
     "scope": "javascript,typescript",
@@ -139,7 +139,7 @@
       "  });",
       "}"
     ],
-    "description": "k-lib modify plugin.json snippet"
+    "description": "hero-lib modify plugin.json snippet"
   },
   "modify-app-routes": {
     "scope": "javascript,typescript",
@@ -176,6 +176,6 @@
       "  tree.write(routesPath, newContent);",
       "}"
     ],
-    "description": "k-lib modify app routes snippet"
+    "description": "hero-lib modify app routes snippet"
   }
 }

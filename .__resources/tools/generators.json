@@ -1,0 +1,20 @@
+{
+  "generators": {
+    "preset": {
+      "factory": "./src/generators/preset/preset",
+      "schema": "./src/generators/preset/schema.json",
+      "description": "preset generator",
+      "hidden": true
+    },
+    "hero-lib": {
+      "factory": "./src/generators/hero-lib/hero-lib",
+      "schema": "./src/generators/hero-lib/schema.json",
+      "description": "hero-lib generator"
+    },
+    "fandom-app": {
+      "factory": "./src/generators/fandom-app/fandom-app",
+      "schema": "./src/generators/fandom-app/schema.json",
+      "description": "fandom-app generator"
+    }
+  }
+}

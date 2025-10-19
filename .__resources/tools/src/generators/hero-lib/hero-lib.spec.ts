@@ -1,19 +1,19 @@
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { Tree, readProjectConfiguration } from '@nx/devkit';
 
-import { kLibGenerator } from './k-lib';
-import { KLibGeneratorSchema } from './schema';
+import { heroLibGenerator } from './hero-lib';
+import { heroLibGeneratorSchema } from './schema';
 
-describe('k-lib generator', () => {
+describe('hero-lib generator', () => {
   let tree: Tree;
-  const options: KLibGeneratorSchema = { name: 'test' };
+  const options: heroLibGeneratorSchema = { name: 'test' };
 
   beforeEach(() => {
     tree = createTreeWithEmptyWorkspace();
   });
 
   it('should run successfully', async () => {
-    await kLibGenerator(tree, options);
+    await heroLibGenerator(tree, options);
     const config = readProjectConfiguration(tree, 'test');
     expect(config).toBeDefined();
   });
