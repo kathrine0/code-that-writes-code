@@ -14,7 +14,7 @@
       "    \"default\": \"dist\"",
       "  }",
       "},",
-      "\"required\": [\"specifier\", \"buildPath\"]"
+      "\"required\": [\"buildPath\"]"
     ],
     "description": "version-publish executor schema snippet"
   },
