@@ -92,6 +92,13 @@ nx publish-all --specifier=<version>
 
 find . -type d -empty -delete && rm -rf .nx .angular dist
 
+### npm cache
+
+grep -rl "@kathrine0" "$(npm config get cache)" | xargs rm -rf
+npm cache ls | grep @kathrine0
+
 ## Links
 
 https://ts-ast-viewer.com/# 
+
+https://ts-ast-viewer.com/#code/JYWwDg9gTgLgBAbzgJQgVxgUzgXzgMyghDgHIABAQwDsBzNAG0qgHoiNMpSBuAKFEixEcABLFMAYWKRqmavDyFiZAHQsAFuJUBjaRFnyevXpgAeg+LuoBneJTBhUHawC4U6LAG0AunAC8cJ68cMJglDDqbqSkADRwuuD6cjBuYiCSegYKMcGIuSFhEVG0UJhyALRM8pzUsflwDBCUACZSiVluABQAlP4AfPUhAtAwnRQA1uHqUMCyAAwsJWXUlTRYULXdKhFynZ0gvX59cCAqAOKlcgAyazXdOSE4vN58QA

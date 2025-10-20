@@ -68,7 +68,7 @@
     "prefix": "version-publish4-project-json",
     "body": [
       "\"version-publish\": {",
-      "  \"executor\": \"@kathrine0/k-tools:version-publish\",",
+      "  \"executor\": \"@kathrine0/tools:version-publish\",",
       "  \"options\": {",
       "    \"buildPath\": \"dist/{projectRoot}\"",
       "  }",
