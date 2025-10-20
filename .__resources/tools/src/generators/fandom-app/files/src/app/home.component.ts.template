@@ -65,8 +65,9 @@ import { Item } from './item-interface';
 
       .card-image {
         width: 100%;
-        height: auto;
-        object-fit: contain;
+        height: 430px;
+        object-fit: cover;
+        object-position: top;
       }
     `,
   ],
