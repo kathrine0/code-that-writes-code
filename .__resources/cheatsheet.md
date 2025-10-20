@@ -90,5 +90,4 @@ nx publish-all --specifier=<version>
 
 # cleanup
 
-find . -type d -empty -delete
-rm -rf .nx .angular dist
+find . -type d -empty -delete && rm -rf .nx .angular dist
