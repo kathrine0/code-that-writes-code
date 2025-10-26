@@ -23,6 +23,16 @@ mat-toolbar {
   z-index: 1000;
 }
 
+.app-title a {
+  text-decoration: none;
+  color: var(--mat-sys-on-primary-container);
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: color-mix(in srgb, var(--mat-sys-on-primary-container) 50%, transparent);
+  }
+}
+
 .spacer {
   flex: 1 1 auto;
 }

@@ -1,1 +1,1 @@
-export * from './lib/Green Lantern/Green Lantern';
+export * from './lib/green-lantern/green-lantern';

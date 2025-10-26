@@ -1,0 +1,71 @@
+<mat-toolbar class="wiki-header">
+  <mat-icon class="logo-icon">brightness_5</mat-icon>
+  <h2>Green Lantern Wiki</h2>
+  <span class="spacer"></span>
+  <button mat-icon-button>
+    <mat-icon>search</mat-icon>
+  </button>
+  <button mat-icon-button>
+    <mat-icon>settings</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened class="wiki-sidenav">
+    <mat-nav-list>
+      @for (section of navSections; track section.id) {
+        <mat-list-item
+          [class.active]="activeSection() === section.id">
+          <mat-icon matListItemIcon>{{ section.icon }}</mat-icon>
+          <span matListItemTitle>{{ section.name }}</span>
+        </mat-list-item>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="wiki-content">
+    @if (activeSection() === 'overview') {
+      <div class="content-section">
+        <h3 class="section-title">Green Lantern Corps</h3>
+        <mat-divider></mat-divider>
+
+        <mat-card class="info-card">
+          <mat-card-header>
+            <mat-card-title>Overview</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              The <strong>Green Lantern Corps</strong> is an intergalactic law enforcement organization
+              consisting of 7200 members who patrol the universe's 3600 sectors. Each Green Lantern
+              wields a power ring, one of the most powerful weapons in the universe, fueled by willpower
+              and the green light of the emotional spectrum.
+            </p>
+
+            <h3>Key Information</h3>
+            <mat-chip-set>
+              <mat-chip>Founded: Billions of years ago</mat-chip>
+              <mat-chip>Headquarters: Oa</mat-chip>
+              <mat-chip>Members: 7200</mat-chip>
+              <mat-chip>Sectors: 3600</mat-chip>
+            </mat-chip-set>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="info-card">
+          <mat-card-header>
+            <mat-card-title>The Oath</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <blockquote class="oath">
+              <p><em>In brightest day, in blackest night,</em></p>
+              <p><em>No evil shall escape my sight.</em></p>
+              <p><em>Let those who worship evil's might,</em></p>
+              <p><em>Beware my power... Green Lantern's light!</em></p>
+            </blockquote>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    }
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
