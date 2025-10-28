@@ -10,4 +10,5 @@ export interface GeneratorOptions extends heroLibGeneratorSchema {
   route: string;
   importPath: string;
   componentName: string;
+  selector: string;
 }

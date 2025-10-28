@@ -61,6 +61,7 @@
       "  route: string;",
       "  importPath: string;",
       "  componentName: string;",
+      "  selector: string;",
       "}"
     ],
     "description": "hero-lib generator schema implementation snippet"
@@ -78,10 +79,11 @@
     "scope": "javascript,typescript",
     "prefix": "lib3-normalize-options",
     "body": [
-      "const normalizedOptions = normalizeOptions(options);",
+      "const normalizedOptions = normalizeOptions(tree, options);",
       "",
       "const schema: Schema = {",
       "  ...normalizedOptions,",
+      "  name: names(options.name).className,",
       "  buildable: true,",
       "  publishable: true,",
       "  standalone: true,",
@@ -95,13 +97,14 @@
     "scope": "javascript,typescript",
     "prefix": "lib4-normalize-options-implementation",
     "body": [
-      "function normalizeOptions(options: HeroLibGeneratorSchema): GeneratorOptions {",
+      "function normalizeOptions(tree: Tree, options: HeroLibGeneratorSchema): GeneratorOptions {",
       "  return {",
       "    ...options,",
       "    directory: options.directory || names(options.name).fileName,",
       "    route: names(options.name).fileName,",
       "    importPath: `@kathrine0/${names(options.name).fileName}`,",
       "    componentName: names(options.name).className,",
+      "    selector: `lib-${names(options.name).fileName}`,",
       "  };",
       "}"
     ],
@@ -177,5 +180,24 @@
       "}"
     ],
     "description": "hero-lib modify app routes snippet"
+  },
+  "generate-additional-files": {
+    "scope": "javascript,typescript",
+    "prefix": "lib7-generate-additional-files",
+    "body": [
+      "function generateAdditionalFiles(tree: Tree, options: GeneratorOptions) {",
+      "  const srcFolder = path.join(__dirname, 'files');",
+      "",
+      "  const target = path.relative(",
+      "    path.join(tree.root),",
+      "    path.join(process.cwd(), options.directory, 'src', 'lib', options.componentName)",
+      "  );",
+      "",
+      "  tree.delete(target);",
+      "",
+      "  generateFiles(tree, srcFolder, target, options);",
+      "}"
+    ],
+    "description": "hero-lib generate additional files snippet"
   }
 }

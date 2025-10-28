@@ -1,0 +1,74 @@
+<mat-toolbar class="wiki-header">
+  <mat-icon class="logo-icon">brightness_5</mat-icon>
+  <h2><%=name %> Wiki</h2>
+  <span class="spacer"></span>
+  <button mat-icon-button>
+    <mat-icon>search</mat-icon>
+  </button>
+  <button mat-icon-button>
+    <mat-icon>settings</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened class="wiki-sidenav">
+    <mat-nav-list>
+      @for (section of navSections; track section.id) {
+        <mat-list-item
+          [class.active]="activeSection() === section.id">
+          <mat-icon matListItemIcon>{{ section.icon }}</mat-icon>
+          <span matListItemTitle>{{ section.name }}</span>
+        </mat-list-item>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="wiki-content">
+    @if (activeSection() === 'overview') {
+      <div class="content-section">
+        <h3 class="section-title"><%=name %> Corps</h3>
+        <mat-divider></mat-divider>
+
+        <mat-card class="info-card">
+          <mat-card-header>
+            <mat-card-title>Overview</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at magna sed dui pulvinar malesuada eget vitae purus.
+              Duis malesuada libero id arcu tincidunt rutrum. Aliquam erat volutpat. Cras in turpis pellentesque, rutrum felis vel,
+              ultrices libero. Maecenas vestibulum sem vitae elit dapibus convallis. Suspendisse vel interdum turpis.
+              Sed nisl mauris, commodo a purus ac, malesuada rutrum nulla. Duis efficitur diam quis mi semper lacinia.
+              Aenean eu varius sapien, eleifend auctor purus. Aliquam ut libero id ex lobortis venenatis sed eu tellus.
+              Vestibulum nec tellus vel tellus feugiat scelerisque. Maecenas id nulla ut libero pretium ultricies eget id arcu.
+              Sed tempus dui a nulla porta, quis
+            </p>
+
+            <h3>Key Information</h3>
+            <mat-chip-set>
+              <mat-chip>Founded: Billions of years ago</mat-chip>
+              <mat-chip>Headquarters: Oa</mat-chip>
+              <mat-chip>Members: 7200</mat-chip>
+              <mat-chip>Sectors: 3600</mat-chip>
+            </mat-chip-set>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="info-card">
+          <mat-card-header>
+            <mat-card-title>The Oath</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <blockquote class="oath">
+              <p><em>Lorem ipsum dolor sit amet,</em></p>
+              <p><em>Duis malesuada libero id arcu.</em></p>
+              <p><em>Vivamus at magna sed dui,</em></p>
+              <p><em>Vestibulum nec... tellus vel tellus!</em></p>
+            </blockquote>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    }
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
