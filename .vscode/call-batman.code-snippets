@@ -1,0 +1,32 @@
+{
+  "call-batman": {
+    "scope": "javascript,typescript",
+    "prefix": "call-batman",
+    "body": [
+      "callBatman();",
+      "",
+      "const terminationPromise = new Promise<{ success: boolean }>((resolve) => {",
+      "  const handleTermination = (exitCode: number) => {",
+      "    resolve({ success: true });",
+      "    process.exit(exitCode);",
+      "  };",
+      "",
+      "  process.on('SIGINT', () => handleTermination(128 + 2));",
+      "  process.on('SIGTERM', () => handleTermination(128 + 15));",
+      "});",
+      "",
+      "return await terminationPromise;",
+    ],
+    "description": "call-batman executor snippet"
+  },
+  "call-batman-project-json": {
+    "scope": "json",
+    "prefix": "call-batman-project-json",
+    "body": [
+      "\"call-batman\": {",
+      "  \"executor\": \"@kathrine0/tools:call-batman\"",
+      "}"
+    ],
+    "description": "call-batman project.json snippet"
+  }
+}
