@@ -15,7 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@kathrine0/green-lantern": ["libs/green-lantern/src/index.ts"]
+      "@kathrine0/batman": ["batman/src/index.ts"],
+      "@kathrine0/green-lantern": ["libs/green-lantern/src/index.ts"],
+      "@kathrine0/tools": ["tools/src/index.ts"],
+      "@kathrine0/wonder-woman": ["libs/wonder-woman/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", ".__resources"]

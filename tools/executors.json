@@ -1,0 +1,9 @@
+{
+  "executors": {
+    "call-batman": {
+      "implementation": "./src/executors/call-batman/call-batman",
+      "schema": "./src/executors/call-batman/schema.json",
+      "description": "If in trouble, call Batman"
+    }
+  }
+}

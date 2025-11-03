@@ -8,4 +8,13 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('@kathrine0/green-lantern').then((m) => m.GreenLantern),
   },
+  {
+    path: 'wonder-woman',
+    loadComponent: () =>
+      import('@kathrine0/wonder-woman').then((m) => m.WonderWoman),
+  },
+  {
+    path: 'batman',
+    loadComponent: () => import('@kathrine0/batman').then((m) => m.Batman),
+  },
 ];

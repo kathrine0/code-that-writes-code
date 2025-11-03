@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "hero-lib": {
+      "factory": "./src/generators/hero-lib/hero-lib",
+      "schema": "./src/generators/hero-lib/schema.json",
+      "description": "Hero Library Generator"
+    }
+  }
+}
