@@ -85,7 +85,7 @@ nx publish-all --specifier=<version>
 
 ## package.json publish
 
-"publish:k-tools": "npm publish ./dist/tools",
+"publish:tools": "npm publish ./dist/tools",
 "publish:create-workspace": "npm publish ./dist/create-workspace"
 
 ## Cleanup
