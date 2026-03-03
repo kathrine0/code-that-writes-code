@@ -3,5 +3,25 @@
     "name": "Green Lantern",
     "image": "green_lantern.jpg",
     "route": "green-lantern"
+  },
+  {
+    "name": "Wonder Woman",
+    "image": "wonder_woman.jpg",
+    "route": "wonder-woman"
+  },
+  {
+    "name": "Batman",
+    "image": "batman.jpg",
+    "route": "batman"
+  },
+  {
+    "name": "aquaman",
+    "image": "aquaman.jpg",
+    "route": "aquaman"
+  },
+  {
+    "name": "superman",
+    "image": "superman.jpg",
+    "route": "superman"
   }
 ]
