@@ -1,4 +1,9 @@
 {
   "nxConsole.generateAiAgentRules": true,
-  "eslint.validate": ["json"]
+  "eslint.validate": [
+    "json"
+  ],
+  "chat.tools.terminal.autoApprove": {
+    "npx nx": true
+  }
 }

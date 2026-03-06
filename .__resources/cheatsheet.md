@@ -18,19 +18,23 @@ nx generate plugin tools
 
 ## Angular Library Generator
 
-nx generate generator tools/src/generators/hero-lib/hero-lib
+nx generate generator tools/src/generators/hero-lib
 
 nx generate @kathrine0/tools:hero-lib my-lib
 
+## Call batman generator
+
+generate with UI or AI "call-batman"
+
 ## Angular App Generator
 
-nx generate generator tools/src/generators/fandom-app/fandom-app
+nx generate generator tools/src/generators/fandom-app
 
 nx generate @kathrine0/tools:fandom-app my-app
 
 ## Preset
 
-nx generate generator tools/src/generators/preset/preset
+nx generate generator tools/src/generators/preset
 
 ### Release
 
