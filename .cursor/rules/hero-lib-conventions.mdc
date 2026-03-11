@@ -1,0 +1,16 @@
+---
+description: Conventions for generating hero libraries in this workspace
+alwaysApply: true
+---
+
+# Hero Library Conventions
+
+When generating a hero library using the `@kathrine0/tools:hero-lib` generator, always place it inside the `libs/` directory by passing `--directory`:
+
+```bash
+# ✅ CORRECT
+npx nx g @kathrine0/tools:hero-lib --name="Wonder Woman" --image="wonder_woman.jpg" --directory="libs/wonder-woman" --no-interactive
+
+# ❌ WRONG - omitting --directory generates the lib in the workspace root
+npx nx g @kathrine0/tools:hero-lib --name="Wonder Woman" --image="wonder_woman.jpg" --no-interactive
+```
