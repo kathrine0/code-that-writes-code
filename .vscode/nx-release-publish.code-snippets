@@ -1,0 +1,15 @@
+{
+  "nx-release-publish-schema": {
+    "scope": "json",
+    "prefix": "nx-release-publish",
+    "body": [
+      "\"nx-release-publish\": {",
+      "  \"executor\": \"@nx/js:release-publish\",",
+      "  \"options\": {",
+      "    \"packageRoot\": \"dist/{projectRoot}\"",
+      "  }",
+      "}",
+    ],
+    "description": "nx-release-publish executor project.json snippet"
+  }
+}
