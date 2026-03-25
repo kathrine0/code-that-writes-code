@@ -95,6 +95,7 @@ nx publish-all --specifier=<version>
 ## Cleanup
 
 find . -type d -empty -delete && rm -rf .nx .angular dist
+git tag | xargs git tag -d
 
 ### npm cache
 
